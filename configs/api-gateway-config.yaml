@@ -1,0 +1,72 @@
+spring.application.name: api-gateway
+
+server.port: 80
+
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+
+        - id: auth-service
+          uri: http://localhost:8090
+          # uri: lb://auth-service - проблемы с перенаправлениями, откуда-то
+          # вылезает login?error и ведет прямо на сервис аутентификации, наверно это плохо..
+          predicates:
+            - Path=/api/auth/login, /login/oauth2/code/github
+
+        - id: post-service-protected
+          uri: lb://post-service
+          predicates:
+            - Path=/api/post/**
+            - Method=DELETE,POST
+          filters:
+            - UserIdHeader
+
+        - id: post-service-public
+          uri: lb://post-service
+          predicates:
+            - Path=/api/post/**,/api/post
+            - Method=GET
+
+        - id: comment-service-protected
+          uri: lb://comment-service
+          predicates:
+            - Path=/api/comment/**
+            - Method=DELETE,POST
+          filters:
+            - UserIdHeader
+
+        - id: comment-service-public
+          uri: lb://comment-service
+          predicates:
+            - Path=/api/comment/**
+            - Method=GET
+
+        - id: denied-routes
+          uri: no://op
+          predicates:
+            - Path=/api/post/exist/**
+          filters:
+            - SetStatus=404
+    config:
+      import-check:
+        enabled: true
+
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: DEBUG
+#    root: INFO
