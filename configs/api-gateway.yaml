@@ -18,6 +18,12 @@ spring:
         locator:
           enabled: true
       routes:
+        - id: denied-routes
+          uri: no://op
+          predicates:
+            - Path=/api/post/exist/**
+          filters:
+            - SetStatus=404
 
         - id: auth-service
           uri: http://localhost:8090
@@ -53,13 +59,6 @@ spring:
           predicates:
             - Path=/api/comment/**
             - Method=GET
-
-        - id: denied-routes
-          uri: no://op
-          predicates:
-            - Path=/api/post/exist/**
-          filters:
-            - SetStatus=404
     config:
       import-check:
         enabled: true

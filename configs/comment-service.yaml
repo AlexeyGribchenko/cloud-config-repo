@@ -1,4 +1,4 @@
-spring.application.name: COMMENT-SERVICE
+spring.application.name: comment-service
 
 server.port: 8083
 
