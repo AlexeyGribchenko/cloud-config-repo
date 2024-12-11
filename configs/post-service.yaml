@@ -4,9 +4,9 @@ server.port: 8082
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/post_db
-    username: postgres
-    password: root
+    url: jdbc:postgresql://${POST_SERVICE_DB_HOST}:${POST_SERVICE_DB_PORT}/${POST_SERVICE_DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate
@@ -22,6 +22,6 @@ eureka:
   client:
     enabled: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://${DISCOVERY_SERVICE_NAME}:${DISCOVERY_SERVICE_PORT}/eureka/
     healthcheck:
       enabled: true
