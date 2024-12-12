@@ -17,7 +17,7 @@ spring.security.oauth2.client:
 
 spring:
   datasource:
-    url: jdbc:postgresql://${POST_SERVICE_DB_HOST}:${POST_SERVICE_DB_PORT}/${POST_SERVICE_DB_NAME}
+    url: jdbc:postgresql://${AUTH_SERVICE_DB_HOST}:${AUTH_SERVICE_DB_PORT}/${AUTH_SERVICE_DB_NAME}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
