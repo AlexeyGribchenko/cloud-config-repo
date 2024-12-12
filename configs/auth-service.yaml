@@ -18,8 +18,8 @@ spring.security.oauth2.client:
 spring:
   datasource:
     url: ${SPRING_DATASOURCE_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    username: auth_user
+    password: auth_password
   jpa:
     hibernate:
       ddl-auto: validate
