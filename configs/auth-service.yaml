@@ -17,9 +17,9 @@ spring.security.oauth2.client:
 
 spring:
   datasource:
-    url: jdbc:postgresql://auth-db-service:5432/user_db
-    username: auth_user
-    password: auth_password
+    url: jdbc:postgresql://${AUTH_SERVICE_DB_HOST}:${AUTH_SERVICE_DB_PORT}/${AUTH_SERVICE_DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate
@@ -40,6 +40,6 @@ eureka:
   client:
     enabled: true
     service-url:
-      defaultZone: http://discovery-service:8761/eureka/
+      defaultZone: http://${DISCOVERY_SERVICE_NAME}:${DISCOVERY_SERVICE_PORT}/eureka/
     healthcheck:
       enabled: true
